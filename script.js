@@ -30,8 +30,6 @@ buttonTesta.addEventListener("click",function(){
     if(senhaDefinida[3] === senhaTeste[3]){
         certos+=1;
     }
-    console.log(senhaTeste)
-    console.log(senhaDefinida)
     if(certos === 1){
         qtdCertos.innerHTML = certos + " Certo"
     }
