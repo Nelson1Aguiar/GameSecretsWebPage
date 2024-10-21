@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Secrets</title>
 </head>
+
 <body>
-    <div id="DefineSenha" style="display: block;">
-        <label for="inputSenha">Digite sua senha</label>
-        <input id="senha" name="inputSenha" type="text" placeholder="Digite sua senha">
-        <button id="botaoSalva">Salvar senha</button>
-    </div>
+    <div class="container">
+        <div id="DefineSenha" class="DefineSenha">
+            <label for="inputSenha">Digite sua senha</label>
+            <input id="senha" class="no-spinner" name="inputSenha" type="number" placeholder="Digite sua senha">
+            <button id="botaoSalva">Salvar senha</button>
+            <h1 id="Aviso" style="height: 2rem;"></h1>
+        </div>
 
-    <div id="TestaSenha" style="display: none;">
-        <label for="inputSenha">Digite sua tentativa de senha</label>
-        <input id="senhaTentativa" name="inputSenha" type="text" placeholder="Digite sua tentativa">
-        <button id="botaoTestaSenha">Testar senha</button>
+        <div id="TestaSenha" class="DefineSenha" style="display: none;">
+            <label for="inputSenha">Digite sua tentativa de senha</label>
+            <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="number" placeholder="Digite sua tentativa">
+            <button id="botaoTestaSenha">Testar senha</button>
+            <h1 id="qtdCertos" style="height: 2rem;"></h1>
+        </div>
     </div>
-
-    <h1 id="qtdCertos"></h1>
     <script src="script.js"></script>
 </body>
+
 </html>
