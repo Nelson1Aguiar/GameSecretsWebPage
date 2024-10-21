@@ -33,7 +33,7 @@ senhaTeste.addEventListener("input", function() {
 
 button.addEventListener("click",function(){
     senhaDefinida = senha.value
-    if(Number(senhaDefinida)<1000){
+    if(senhaDefinida.length<4){
         aviso.innerHTML = "Mínimo 4 dígitos"
         return;
     }
@@ -46,7 +46,7 @@ button.addEventListener("click",function(){
 buttonTesta.addEventListener("click",function(){
     let senhaTesteComparacao = senhaTeste.value
 
-    if(Number(senhaTesteComparacao)<1000){
+    if(senhaTesteComparacao.length<4){
         qtdCertos.innerHTML = "Mínimo 4 digitos"
         return;
     }
