@@ -1,0 +1,70 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    font-size: 15px;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: black;
+}
+
+.DefineSenha{
+    width: 30%;
+    height: 70%;
+    background-color: rgb(73, 73, 88);
+    border-radius: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+}
+
+.DefineSenha label{
+    font-size: 2rem;
+}
+
+.DefineSenha input{
+    width: 80%;
+    border-radius: 20px;
+    padding: 2%;
+}
+
+.DefineSenha button{
+    cursor: pointer;
+    width: 30%;
+    padding: 2%;
+    background-color: black;
+    color: white;
+    outline: none;
+    border-radius: 20px;
+}
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.CaixaDeTexto{
+    margin-top: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
