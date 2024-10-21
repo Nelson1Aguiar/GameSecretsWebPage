@@ -68,3 +68,10 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+@media (max-width: 700px) {
+    .DefineSenha {
+      width: 100%;
+      border-radius: 0;
+    }
+  }
