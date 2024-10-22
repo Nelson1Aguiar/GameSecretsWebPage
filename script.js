@@ -18,12 +18,14 @@ for (let i = 0; i < 4; i++) {
         if (tecla) {
             tecla.addEventListener('click', function() {
                 const currentColor = tecla.style.backgroundColor;
-                if (currentColor === 'green' || currentColor === '') {
+                if (currentColor === 'white' || currentColor === '') {
+                    tecla.style.backgroundColor = 'green';
+                } else if (currentColor === 'green') {
                     tecla.style.backgroundColor = 'yellow';
                 } else if (currentColor === 'yellow') {
                     tecla.style.backgroundColor = 'red';
                 } else {
-                    tecla.style.backgroundColor = 'green';
+                    tecla.style.backgroundColor = 'white';
                 }
             });
             teclas[i].push(tecla);
