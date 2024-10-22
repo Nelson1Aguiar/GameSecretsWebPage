@@ -13,7 +13,7 @@ let teclas = [];
 
 for (let i = 0; i < 4; i++) {
     teclas[i] = [];
-    for (let j = 0; j < 9; j++) {
+    for (let j = 0; j <= 9; j++) {
         let tecla = document.getElementById(`Tecla${j}Coluna${i}`);
         if (tecla) {
             tecla.addEventListener('click', function() {
