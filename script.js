@@ -3,30 +3,54 @@ const button = document.getElementById("botaoSalva");
 
 const buttonTesta = document.getElementById("botaoTestaSenha");
 
-const qtdCertos = document.getElementById("qtdCertos");
 const senhaTeste = document.getElementById("senhaTentativa");
-const aviso = document.getElementById("Aviso");
+
+const textResponse = document.getElementById("textResponse");
 
 let senhaDefinida;
 
+let teclas = [];
+
+for (let i = 0; i < 4; i++) {
+    teclas[i] = [];
+    for (let j = 0; j < 9; j++) {
+        let tecla = document.getElementById(`Tecla${j}Coluna${i}`);
+        if (tecla) {
+            tecla.addEventListener('click', function() {
+                const currentColor = tecla.style.backgroundColor;
+                if (currentColor === 'green' || currentColor === '') {
+                    tecla.style.backgroundColor = 'yellow';
+                } else if (currentColor === 'yellow') {
+                    tecla.style.backgroundColor = 'red';
+                } else {
+                    tecla.style.backgroundColor = 'green';
+                }
+            });
+            teclas[i].push(tecla);
+        } else {
+            console.warn(`Tecla com id Tecla${j}Coluna${i} não encontrada.`);
+        }
+    }
+}
+
 senha.addEventListener("input", function() {
-    aviso.innerHTML = '';
+    textResponse.innerHTML = '';
 
     let senhaTesteComparacao = senha.value;
 
     if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
-        aviso.innerHTML = "Máximo 4 dígitos";
+        textResponse.innerHTML = "Máximo 4 dígitos";
         senha.value = senhaTesteComparacao.slice(0, -1);
     }
 });
 
 senhaTeste.addEventListener("input", function() {
-    qtdCertos.innerHTML = '';
+    textResponse.innerHTML = '';
 
     let senhaTesteComparacao = senhaTeste.value;
 
     if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
-        qtdCertos.innerHTML = "Máximo 4 dígitos";
+        textResponse.innerHTML = "Máximo 4 dígitos";
         senhaTeste.value = senhaTesteComparacao.slice(0, -1);
     }
 });
@@ -34,7 +58,7 @@ senhaTeste.addEventListener("input", function() {
 button.addEventListener("click",function(){
     senhaDefinida = senha.value
     if(senhaDefinida.length<4){
-        aviso.innerHTML = "Mínimo 4 dígitos"
+        textResponse.innerHTML = "Mínimo 4 dígitos"
         return;
     }
     const testaSenhaDiv = document.getElementById("TestaSenha");
@@ -47,7 +71,7 @@ buttonTesta.addEventListener("click",function(){
     let senhaTesteComparacao = senhaTeste.value
 
     if(senhaTesteComparacao.length<4){
-        qtdCertos.innerHTML = "Mínimo 4 digitos"
+        textResponse.innerHTML = "Mínimo 4 digitos"
         return;
     }
 
@@ -59,9 +83,9 @@ buttonTesta.addEventListener("click",function(){
         }
     }
     if(certos === 1){
-        qtdCertos.innerHTML = certos + " Certo"
+        textResponse.innerHTML = certos + " Certo"
     }
     else{
-        qtdCertos.innerHTML = certos + " Certos"
+        textResponse.innerHTML = certos + " Certos"
     }
 })
