@@ -11,29 +11,71 @@ let senhaDefinida;
 
 let teclas = [];
 
+let teclasBackup = [[],[],[],[]]
+
 for (let i = 0; i < 4; i++) {
     teclas[i] = [];
     for (let j = 0; j <= 9; j++) {
         let tecla = document.getElementById(`Tecla${j}Coluna${i}`);
         if (tecla) {
-            tecla.addEventListener('click', function() {
-                const currentColor = tecla.style.backgroundColor;
-                if (currentColor === 'white' || currentColor === '') {
-                    tecla.style.backgroundColor = 'green';
-                } else if (currentColor === 'green') {
-                    tecla.style.backgroundColor = 'yellow';
-                } else if (currentColor === 'yellow') {
-                    tecla.style.backgroundColor = 'red';
-                } else {
-                    tecla.style.backgroundColor = 'white';
-                }
-            });
+            tecla.dataset.column = i;
+            tecla.dataset.row = j;
+            tecla.addEventListener('click', ChangeColor); 
             teclas[i].push(tecla);
         } else {
             console.warn(`Tecla com id Tecla${j}Coluna${i} não encontrada.`);
         }
     }
 }
+
+function ChangeColor(event) {
+    const tecla = event.target;
+    const currentColor = tecla.style.backgroundColor;
+
+    const i = tecla.dataset.column;
+    const j = tecla.dataset.row;
+
+    if (currentColor === 'white' || currentColor === '') {
+        tecla.style.backgroundColor = 'yellow';
+    } else if (currentColor === 'yellow') {
+        tecla.style.backgroundColor = 'red';
+    } else if (currentColor === 'red') {
+        tecla.style.backgroundColor = 'green';
+        BlockOtherButtons(i, j);
+    } else {
+        tecla.style.backgroundColor = 'white';
+        UnlockButtons(i,j)
+    }
+}
+
+const BlockOtherButtons = (i, j) => {
+
+    teclasBackup[i] = teclas[i].map(tecla => ({
+        backgroundColor: tecla.style.backgroundColor,
+        opacity: tecla.style.opacity,
+    }));
+
+    teclas[i].forEach((tecla, index) => {
+        if (index !== parseInt(j)) {
+            tecla.style.backgroundColor = "rgb(113, 110, 110)";
+            tecla.style.opacity = "0.5";
+            tecla.removeEventListener("click", ChangeColor);
+        }
+    });
+};
+
+
+const UnlockButtons = (i, j) => {
+    teclas[i].forEach((tecla, index) => {
+        if (index !== parseInt(j)) {
+            tecla.style.backgroundColor = teclasBackup[i][index].backgroundColor;
+            tecla.style.opacity = teclasBackup[i][index].opacity;
+            tecla.addEventListener("click", ChangeColor);
+        }
+    });
+
+    teclasBackup[i] = [];
+};
 
 senha.addEventListener("input", function() {
     textResponse.innerHTML = '';
