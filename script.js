@@ -79,6 +79,8 @@ const UnlockButtons = (i, j) => {
 senha.addEventListener("input", function () {
     textResponse.innerHTML = '';
 
+    senha.value.replace(/[^\d]/g, '');
+
     let senhaTesteComparacao = senha.value;
 
     if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
@@ -90,6 +92,8 @@ senha.addEventListener("input", function () {
 senhaTeste.addEventListener("input", function () {
     textResponse.innerHTML = '';
 
+    senhaTeste.value.replace(/[^\d]/g, '');
+
     let senhaTesteComparacao = senhaTeste.value;
 
     if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
@@ -100,6 +104,8 @@ senhaTeste.addEventListener("input", function () {
 
 inputPass.addEventListener("input", function () {
     let senhaAux = inputPass.value;
+
+    inputPass.value.replace(/[^\d]/g, '');
 
     if (!isNaN(senhaAux) && Number(senhaAux) > 9999) {
         inputPass.value = senhaAux.slice(0, -1);
