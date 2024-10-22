@@ -3,25 +3,77 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <link rel="stylesheet" href="style.css">
     <title>Secrets</title>
 </head>
 
 <body>
     <div class="container">
+        <div class="painel">
+            <h1 class="textResponse" id="textResponse"></h1>
+        </div>
         <div id="DefineSenha" class="DefineSenha">
             <label for="inputSenha">Digite sua senha</label>
             <input id="senha" class="no-spinner" name="inputSenha" type="number" placeholder="Digite sua senha">
             <button id="botaoSalva">Salvar senha</button>
-            <h1 id="Aviso" style="height: 2rem;"></h1>
         </div>
 
         <div id="TestaSenha" class="DefineSenha" style="display: none;">
             <label for="inputSenha">Digite sua tentativa de senha</label>
             <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="number" placeholder="Digite sua tentativa">
             <button id="botaoTestaSenha">Testar senha</button>
-            <h1 id="qtdCertos" style="height: 2rem;"></h1>
+        </div>
+
+        <div class="containerTeclado">
+            <div class="teclado">
+                <div class="tecla" id="Tecla0Coluna0">0</div>
+                <div class="tecla" id="Tecla1Coluna0">1</div>
+                <div class="tecla" id="Tecla2Coluna0">2</div>
+                <div class="tecla" id="Tecla3Coluna0">3</div>
+                <div class="tecla" id="Tecla4Coluna0">4</div>
+                <div class="tecla" id="Tecla5Coluna0">5</div>
+                <div class="tecla" id="Tecla6Coluna0">6</div>
+                <div class="tecla" id="Tecla7Coluna0">7</div>
+                <div class="tecla" id="Tecla8Coluna0">8</div>
+                <div class="tecla" id="Tecla9Coluna0">9</div>
+            </div>
+            <div class="teclado">
+                <div class="tecla" id="Tecla0Coluna1">0</div>
+                <div class="tecla" id="Tecla1Coluna1">1</div>
+                <div class="tecla" id="Tecla2Coluna1">2</div>
+                <div class="tecla" id="Tecla3Coluna1">3</div>
+                <div class="tecla" id="Tecla4Coluna1">4</div>
+                <div class="tecla" id="Tecla5Coluna1">5</div>
+                <div class="tecla" id="Tecla6Coluna1">6</div>
+                <div class="tecla" id="Tecla7Coluna1">7</div>
+                <div class="tecla" id="Tecla8Coluna1">8</div>
+                <div class="tecla" id="Tecla9Coluna1">9</div>
+            </div>
+            <div class="teclado">
+                <div class="tecla" id="Tecla0Coluna2">0</div>
+                <div class="tecla" id="Tecla1Coluna2">1</div>
+                <div class="tecla" id="Tecla2Coluna2">2</div>
+                <div class="tecla" id="Tecla3Coluna2">3</div>
+                <div class="tecla" id="Tecla4Coluna2">4</div>
+                <div class="tecla" id="Tecla5Coluna2">5</div>
+                <div class="tecla" id="Tecla6Coluna2">6</div>
+                <div class="tecla" id="Tecla7Coluna2">7</div>
+                <div class="tecla" id="Tecla8Coluna2">8</div>
+                <div class="tecla" id="Tecla9Coluna2">9</div>
+            </div>
+            <div class="teclado">
+                <div class="tecla" id="Tecla0Coluna3">0</div>
+                <div class="tecla" id="Tecla1Coluna3">1</div>
+                <div class="tecla" id="Tecla2Coluna3">2</div>
+                <div class="tecla" id="Tecla3Coluna3">3</div>
+                <div class="tecla" id="Tecla4Coluna3">4</div>
+                <div class="tecla" id="Tecla5Coluna3">5</div>
+                <div class="tecla" id="Tecla6Coluna3">6</div>
+                <div class="tecla" id="Tecla7Coluna3">7</div>
+                <div class="tecla" id="Tecla8Coluna3">8</div>
+                <div class="tecla" id="Tecla9Coluna3">9</div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
