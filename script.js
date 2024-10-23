@@ -105,7 +105,7 @@ senhaTeste.addEventListener("input", function () {
 inputPass.addEventListener("input", function () {
     let senhaAux = inputPass.value;
 
-    inputPass.value.replace(/[^\d]/g, '');
+    inputPass.value = senhaAux.replace(/[a-zA-Z\s\W]/g, "");
 
     if (!isNaN(senhaAux) && Number(senhaAux) > 9999) {
         inputPass.value = senhaAux.slice(0, -1);
