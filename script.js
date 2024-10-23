@@ -79,9 +79,9 @@ const UnlockButtons = (i, j) => {
 senha.addEventListener("input", function () {
     textResponse.innerHTML = '';
 
-    senha.value.replace(/[^\d]/g, '');
-
     let senhaTesteComparacao = senha.value;
+
+    senha.value = senhaTesteComparacao.replace(/[a-zA-Z\s\W]/g, "");
 
     if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
         textResponse.innerHTML = "Máximo 4 dígitos";
@@ -92,9 +92,9 @@ senha.addEventListener("input", function () {
 senhaTeste.addEventListener("input", function () {
     textResponse.innerHTML = '';
 
-    senhaTeste.value.replace(/[^\d]/g, '');
-
     let senhaTesteComparacao = senhaTeste.value;
+
+    senhaTeste.value = senhaTesteComparacao.replace(/[a-zA-Z\s\W]/g, "");
 
     if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
         textResponse.innerHTML = "Máximo 4 dígitos";
@@ -136,8 +136,6 @@ button.addEventListener("click", function () {
     const DefineSenhaDiv = document.getElementById("DefineSenha");
     DefineSenhaDiv.style.display = "none";
     testaSenhaDiv.style.display = "flex";
-
-    senhaSalvaParaExibir.value = senha.value
 })
 
 buttonTesta.addEventListener("click", function () {
