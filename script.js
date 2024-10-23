@@ -11,8 +11,6 @@ const inputPass = document.getElementById("DefinirSenhaAdversario");
 
 const sideBar = document.getElementById("sidebar");
 
-const mainContar = document.getElementById("mainContainer")
-
 let senhaDefinida;
 
 let teclas = [];
@@ -191,10 +189,8 @@ const SaveInHistoric = (tentativa) =>{
 
 const toggleMenu = () =>{
     sideBar.classList.add("active")
-    mainContar.style.overflow = "hidden"
 }
 
 const toggleSidebar = () =>{
     sideBar.classList.remove("active")
-    mainContar.style.overflow = "auto"
 }
