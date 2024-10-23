@@ -19,14 +19,20 @@
         </div>
         <div id="DefineSenha" class="DefineSenha">
             <label for="inputSenha">Digite sua senha</label>
-            <input id="senha" class="no-spinner" name="inputSenha" type="search" placeholder="Digite sua senha">
+            <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                <input id="senha" class="no-spinner" name="inputSenha" type="number" placeholder="Digite sua senha">
+                <i class="bi bi-x-circle-fill clear-icon" onclick="clearInput('senha')"></i>
+            </div>
             <button id="botaoSalva">Salvar senha</button>
         </div>
 
         <div id="TestaSenha" class="DefineSenha" style="display: none;">
             <label for="inputSenha">Digite sua tentativa de senha</label>
-            <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="search"
+            <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="number"
                 placeholder="Digite sua tentativa">
+                <i class="bi bi-x-circle-fill clear-icon" onclick="clearInput('senhaTentativa')"></i>
+            </div>
             <button id="botaoTestaSenha">Testar senha</button>
         </div>
 

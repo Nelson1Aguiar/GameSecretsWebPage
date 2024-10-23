@@ -61,6 +61,11 @@ body{
     z-index: 10;
 }
 
+.clear-icon{
+    position: absolute;
+    left: 67%;
+}
+
 .menu-icon{
     display: flex;
     align-items: end;
@@ -247,5 +252,9 @@ body{
     }
     .sidebar{
         width: 60%;
+    }
+    .clear-icon{
+        left: 64%;
+        font-size: 11px;
     }
   }

@@ -194,3 +194,12 @@ const toggleMenu = () =>{
 const toggleSidebar = () =>{
     sideBar.classList.remove("active")
 }
+
+const clearInput = (inputId) =>{
+    if(inputId === 'senhaTentativa'){
+        senhaTeste.value = '';
+    }
+    else{
+        senha.value = '';
+    }
+}
