@@ -56,6 +56,7 @@ body{
     top: 0;
     background-color: white;
     position: fixed;
+    overflow: hidden;
 }
 
 .DefineSenha{
