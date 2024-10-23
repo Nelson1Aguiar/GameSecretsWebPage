@@ -9,6 +9,8 @@ const textResponse = document.getElementById("textResponse");
 
 const inputPass = document.getElementById("DefinirSenhaAdversario");
 
+const sideBar = document.getElementById("sidebar");
+
 let senhaDefinida;
 
 let teclas = [];
@@ -160,5 +162,35 @@ buttonTesta.addEventListener("click", function () {
         textResponse.innerHTML = certos + " Certos"
     }
 
+    let tentativa = {
+        senha: senhaTesteComparacao,
+        numCertos: certos
+    }
+
+    SaveInHistoric(tentativa)
+
     senhaTeste.value = '';
 })
+
+const SaveInHistoric = (tentativa) =>{
+    const divContainer = document.createElement("div");
+    const senha = document.createElement("h2");
+    const numCertos = document.createElement("h3");
+
+    senha.innerHTML =  `Senha: ${tentativa.senha}`;
+    numCertos.innerHTML = `Certos: ${tentativa.numCertos}`;
+
+    divContainer.classList.add("containerHistoric")
+
+    divContainer.appendChild(senha);
+    divContainer.appendChild(numCertos);
+    sideBar.appendChild(divContainer);
+}
+
+const toggleMenu = () =>{
+    sideBar.classList.add("active")
+}
+
+const toggleSidebar = () =>{
+    sideBar.classList.remove("active")
+}

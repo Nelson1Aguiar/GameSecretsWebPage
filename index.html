@@ -12,6 +12,9 @@
 <body>
     <div class="container">
         <div class="painel">
+            <div class="menu-icon" onclick="toggleMenu()">
+                &#9776;
+            </div>
             <h1 class="textResponse" id="textResponse"></h1>
         </div>
         <div id="DefineSenha" class="DefineSenha">
@@ -27,7 +30,7 @@
             <button id="botaoTestaSenha">Testar senha</button>
         </div>
 
-        <div class="containerMostrarSenha" style="flex-direction: column; gap: 10px;" >
+        <div class="containerMostrarSenha" style="flex-direction: column; gap: 10px;">
             <div class="CotainerTextoSenhaAdversario">
                 <h1>Nota</h1>
                 <h2>Senha do adversário</h2>
@@ -37,6 +40,11 @@
                     placeholder="Digite a senha do adversário">
                 <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenhaCriar()"></i>
             </div>
+        </div>
+
+        <div id="sidebar" class="sidebar">
+            <i class="bi bi-arrow-left back-icon" onclick="toggleSidebar()"></i>
+            <h1>Suas tentativas</h1>
         </div>
 
         <div class="containerTeclado">
