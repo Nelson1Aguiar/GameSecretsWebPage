@@ -14,10 +14,6 @@
         <div class="painel">
             <h1 class="textResponse" id="textResponse"></h1>
         </div>
-        <div class="containerMostrarSenha">
-            <input class="no-spinner" type="number" id="DefinirSenhaAdversario" placeholder="Digite a senha do adversário">
-            <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenhaCriar()"></i>
-        </div>
         <div id="DefineSenha" class="DefineSenha">
             <label for="inputSenha">Digite sua senha</label>
             <input id="senha" class="no-spinner" name="inputSenha" type="search" placeholder="Digite sua senha">
@@ -26,8 +22,21 @@
 
         <div id="TestaSenha" class="DefineSenha" style="display: none;">
             <label for="inputSenha">Digite sua tentativa de senha</label>
-            <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="search" placeholder="Digite sua tentativa">
+            <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="search"
+                placeholder="Digite sua tentativa">
             <button id="botaoTestaSenha">Testar senha</button>
+        </div>
+
+        <div class="containerMostrarSenha" style="flex-direction: column; gap: 10px;" >
+            <div class="CotainerTextoSenhaAdversario">
+                <h1>Nota</h1>
+                <h2>Senha do adversário</h2>
+            </div>
+            <div style="display: flex;align-items: center;justify-content: center;width: 100%;">
+                <input class="no-spinner" type="number" id="DefinirSenhaAdversario"
+                    placeholder="Digite a senha do adversário">
+                <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenhaCriar()"></i>
+            </div>
         </div>
 
         <div class="containerTeclado">
