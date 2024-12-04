@@ -94,7 +94,7 @@ const UnlockButtons = (i, j) => {
 initPlayerForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const apiUrl = "https://gamesecretsapi-5.onrender.com/Game/InitPlayer";
+    const apiUrl = "https://gamesecretsapi.onrender.com/Game/InitPlayer";
 
     const statusElement = document.getElementById("status");
 
@@ -155,7 +155,7 @@ const awaitYourTurn = async () =>{
 
     statusTurno.textContent = "Aguarde sua rodada..."
 
-    const apiUrl = `https://gamesecretsapi-5.onrender.com/Game/CurrentTurn/${player.name}`;
+    const apiUrl = `https://gamesecretsapi.onrender.com/Game/CurrentTurn/${player.name}`;
 
     try {
         const response = await fetch(apiUrl, {
@@ -183,7 +183,7 @@ const awaitYourTurn = async () =>{
 }
 
 const playYourTurn = async (senhaTesteComparacao) =>{    
-    const apiUrl = "https://gamesecretsapi-5.onrender.com/Game/PlayTurn";
+    const apiUrl = "https://gamesecretsapi.onrender.com/Game/PlayTurn";
 
     GameStartPlayer = {
         Player: player.name,
