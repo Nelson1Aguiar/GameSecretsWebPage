@@ -1,5 +1,4 @@
 const senha = document.getElementById("senha");
-const button = document.getElementById("botaoSalva");
 
 const buttonTesta = document.getElementById("botaoTestaSenha");
 
@@ -11,9 +10,23 @@ const inputPass = document.getElementById("DefinirSenhaAdversario");
 
 const sideBar = document.getElementById("sidebar");
 
+const initPlayerForm = document.getElementById("initPlayerForm");
+
+const playerName = document.getElementById("namePlayerInit");
+
+const password = document.getElementById("passwordInit");
+
+const mainContainer = document.getElementById("mainContainer");
+
+const containerInit = document.getElementById("containerInit");
+
+const overlay = document.getElementById("overlay");
+
 let senhaDefinida;
 
 let teclas = [];
+
+let player;
 
 let teclasBackup = [[], [], [], []]
 
@@ -78,18 +91,153 @@ const UnlockButtons = (i, j) => {
     teclasBackup[i] = [];
 };
 
-senha.addEventListener("input", function () {
-    textResponse.innerHTML = '';
+initPlayerForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-    let senhaTesteComparacao = senha.value;
+    const apiUrl = "https://gamesecretsapi-5.onrender.com/Game/InitPlayer";
 
-    senha.value = senhaTesteComparacao.replace(/[a-zA-Z\s\W]/g, "");
+    const statusElement = document.getElementById("status");
 
-    if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
-        textResponse.innerHTML = "Máximo 4 dígitos";
-        senha.value = senhaTesteComparacao.slice(0, -1);
+    statusElement.textContent = "Conectando ao servidor...";
+
+    GameStartPlayer = {
+        Player: playerName.value,
+        Password: password.value
+    }
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(GameStartPlayer)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+            statusElement.textContent = `Jogo iniciado: ${data.Player1} vs ${data.Player2}`;
+            containerInit.style.display = "none";
+            mainContainer.style.display = "flex";
+
+            if(data.player1 === playerName){
+                player = {
+                    isYourTurn: true,
+                    name: playerName
+                }
+            }
+            else{
+                player = {
+                    isYourTurn: false,
+                    name: playerName
+                }
+                awaitYourTurn();
+            }
+        } else {
+            statusElement.textContent = `Erro: ${data.message}`;
+        }
+    } catch (error) {
+        console.error("Erro ao aguardar jogador 2:", error);
+        statusElement.textContent = "Erro ao conectar-se ao servidor.";
     }
 });
+
+
+const awaitYourTurn = async () =>{
+    overlay.style.display = 'block';
+
+    const statusTurno = document.getElementById("turnoStatus");
+
+    statusTurno.textContent = "Aguarde sua rodada..."
+
+    const apiUrl = `https://gamesecretsapi-5.onrender.com/Game/CurrentTurn/${player.name}`;
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+            statusTurno.textContent = data.message;
+            overlay.style.display = 'none';
+        } else {
+            console.log(`Erro: ${data.message}`);
+        }
+    } catch (error) {
+        console.error("Erro ao aguardar turno", error);
+    }
+}
+
+const playYourTurn = async (senhaTesteComparacao) =>{    
+    const apiUrl = "https://gamesecretsapi-5.onrender.com/Game/PlayTurn";
+
+    GameStartPlayer = {
+        Player: player.name,
+        Password: senhaTesteComparacao
+    }
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(GameStartPlayer)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+            textResponse.innerHTML = `${data.numerosCertos} certos`;
+
+            let tentativa = {
+                senha: senhaTesteComparacao,
+                numCertos: data.numerosCertos
+            }
+        
+            SaveInHistoric(tentativa);
+            awaitYourTurn();
+        
+            senhaTeste.value = '';
+        } else {
+            console.log(`Erro: ${data.message}`);
+        }
+    } catch (error) {
+        console.error("Erro ao jogar turno:", error);
+    }
+}
+
+password.addEventListener("input", function () {
+    const statusElement = document.getElementById("status");
+
+    let senhaTesteComparacao = password.value;
+
+    password.value = senhaTesteComparacao.replace(/[a-zA-Z\s\W]/g, "");
+
+    if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
+        statusElement.textContent = "Máximo 4 dígitos";
+        password.value = senhaTesteComparacao.slice(0, -1);
+    }
+});
+
 
 senhaTeste.addEventListener("input", function () {
     textResponse.innerHTML = '';
@@ -128,18 +276,6 @@ function mostrarSenhaCriar() {
     }
 }
 
-button.addEventListener("click", function () {
-    senhaDefinida = senha.value
-    if (senhaDefinida.length < 4) {
-        textResponse.innerHTML = "Mínimo 4 dígitos"
-        return;
-    }
-    const testaSenhaDiv = document.getElementById("TestaSenha");
-    const DefineSenhaDiv = document.getElementById("DefineSenha");
-    DefineSenhaDiv.style.display = "none";
-    testaSenhaDiv.style.display = "flex";
-})
-
 buttonTesta.addEventListener("click", function () {
     let senhaTesteComparacao = senhaTeste.value
 
@@ -148,28 +284,7 @@ buttonTesta.addEventListener("click", function () {
         return;
     }
 
-    let certos = 0;
-
-    for (let i = 0; i < senhaTesteComparacao.length; i++) {
-        if (senhaDefinida[i] === senhaTesteComparacao[i]) {
-            certos += 1;
-        }
-    }
-    if (certos === 1) {
-        textResponse.innerHTML = certos + " Certo"
-    }
-    else {
-        textResponse.innerHTML = certos + " Certos"
-    }
-
-    let tentativa = {
-        senha: senhaTesteComparacao,
-        numCertos: certos
-    }
-
-    SaveInHistoric(tentativa)
-
-    senhaTeste.value = '';
+    playYourTurn(senhaTesteComparacao);
 })
 
 const SaveInHistoric = (tentativa) =>{
