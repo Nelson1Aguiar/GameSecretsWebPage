@@ -86,9 +86,14 @@ const moveScreenToLogin = () => {
 initPlayerForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const apiUrl = "https://gamesecretsapi.onrender.com/Game/InitPlayer";
-
     const statusElement = document.getElementById("status");
+
+    if (password.value.length < 4){
+        statusElement.textContent = 'Mínimo 4 dígitos'
+        return;
+    }
+
+    const apiUrl = "https://gamesecretsapi.onrender.com/Game/InitPlayer";
 
     statusElement.textContent = "Aguardando adversário...";
 
@@ -250,7 +255,7 @@ senhaTeste.addEventListener("input", function () {
 
     senhaTeste.value = senhaTesteComparacao.replace(/[a-zA-Z\s\W]/g, "");
 
-    if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
+    if (senhaTeste.value.length > 4) {
         textResponse.innerHTML = "Máximo 4 dígitos";
         senhaTeste.value = senhaTesteComparacao.slice(0, -1);
     }
@@ -261,7 +266,7 @@ inputPass.addEventListener("input", function () {
 
     inputPass.value = senhaAux.replace(/[a-zA-Z\s\W]/g, "");
 
-    if (!isNaN(senhaAux) && Number(senhaAux) > 9999) {
+    if (inputPass.value.length > 4) {
         inputPass.value = senhaAux.slice(0, -1);
     }
 });
@@ -271,7 +276,7 @@ password.addEventListener("input", function () {
 
     password.value = senhaAux.replace(/[a-zA-Z\s\W]/g, "");
 
-    if (!isNaN(senhaAux) && Number(senhaAux) > 9999) {
+    if (password.value.length > 4) {
         password.value = senhaAux.slice(0, -1);
     }
 });

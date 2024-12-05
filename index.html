@@ -18,7 +18,7 @@
                     <label for="playerName">Nome</label>
                     <input id="namePlayerInit" name="playerName" type="text" required placeholder="Player">
                     <label style="margin-top: 10%;" for="password">Senha</label>
-                    <input id="passwordInit" name="password" type="number" required placeholder="1234">
+                    <input id="passwordInit" name="password" type="text" required placeholder="1234">
                     <button id="initPlayer" type="submit">Iniciar</button>
                     <p id="status"></p>
                 </form>
@@ -36,7 +36,7 @@
             <div id="TestaSenha" class="DefineSenha" style="display: flex;">
                 <label for="inputSenha">Digite sua tentativa de senha</label>
                 <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
-                    <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="number"
+                    <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="text"
                         placeholder="Digite sua tentativa">
                     <i class="bi bi-x-circle-fill clear-icon" onclick="clearInput('senhaTentativa')"></i>
                 </div>
@@ -49,7 +49,7 @@
                     <h2>Senha do adversário</h2>
                 </div>
                 <div style="display: flex;align-items: center;justify-content: center;width: 100%;">
-                    <input disabled class="no-spinner" type="number" id="DefinirSenhaAdversario"
+                    <input disabled class="no-spinner" type="text" id="DefinirSenhaAdversario"
                         placeholder="Digite sua senha">
                     <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenhaCriar()"></i>
                 </div>
