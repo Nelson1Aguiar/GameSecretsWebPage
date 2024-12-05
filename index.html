@@ -10,103 +10,105 @@
 </head>
 
 <body>
-    <div id="containerInit" class = "containerInit">
-        <div class="initFormContainer">
-            <h1>Secrets</h1>
-            <form id = "initPlayerForm">
-                <label for="playerName">Nome</label>
-                <input id="namePlayerInit" name="playerName" type="text" required placeholder="Player">
-                <label style="margin-top: 10%;" for="password">Senha</label>
-                <input id="passwordInit" name="password" type="number" required placeholder="1234">
-                <button id="initPlayer" type="submit">Iniciar</button>
-                <p id="status"></p>
-            </form>
-        </div>
-    </div>
-
-    <div id="mainContainer" class="mainContainer">
-        <div class="painel">
-            <div class="menu-icon" onclick="toggleMenu()">
-                &#9776;
-            </div>
-            <h1 class="textResponse" id="textResponse"></h1>
-            <p id="turnoStatus"></p>
-        </div>
-        <div id="TestaSenha" class="DefineSenha" style="display: flex;">
-            <label for="inputSenha">Digite sua tentativa de senha</label>
-            <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
-                <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="number"
-                placeholder="Digite sua tentativa">
-                <i class="bi bi-x-circle-fill clear-icon" onclick="clearInput('senhaTentativa')"></i>
-            </div>
-            <button id="botaoTestaSenha">Testar senha</button>
-        </div>
-
-        <div class="containerMostrarSenha" style="flex-direction: column; gap: 10px;">
-            <div class="CotainerTextoSenhaAdversario">
-                <h1>Nota</h1>
-                <h2>Senha do adversário</h2>
-            </div>
-            <div style="display: flex;align-items: center;justify-content: center;width: 100%;">
-                <input disabled class="no-spinner" type="number" id="DefinirSenhaAdversario"
-                    placeholder="Digite sua senha">
-                <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenhaCriar()"></i>
+    <div class="containerInit principal">
+        <div id="containerInit" class="containerInit">
+            <div class="initFormContainer">
+                <h1>Secrets</h1>
+                <form id="initPlayerForm">
+                    <label for="playerName">Nome</label>
+                    <input id="namePlayerInit" name="playerName" type="text" required placeholder="Player">
+                    <label style="margin-top: 10%;" for="password">Senha</label>
+                    <input id="passwordInit" name="password" type="number" required placeholder="1234">
+                    <button id="initPlayer" type="submit">Iniciar</button>
+                    <p id="status"></p>
+                </form>
             </div>
         </div>
 
-        <div id="sidebar" class="sidebar">
-            <i class="bi bi-arrow-left back-icon" onclick="toggleSidebar()"></i>
-            <h1>Suas tentativas</h1>
-        </div>
+        <div id="mainContainer" class="mainContainer">
+            <div class="painel">
+                <div class="menu-icon" onclick="toggleMenu()">
+                    &#9776;
+                </div>
+                <h1 class="textResponse" id="textResponse"></h1>
+                <p id="turnoStatus"></p>
+            </div>
+            <div id="TestaSenha" class="DefineSenha" style="display: flex;">
+                <label for="inputSenha">Digite sua tentativa de senha</label>
+                <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                    <input id="senhaTentativa" class="no-spinner" name="inputSenha" type="number"
+                        placeholder="Digite sua tentativa">
+                    <i class="bi bi-x-circle-fill clear-icon" onclick="clearInput('senhaTentativa')"></i>
+                </div>
+                <button id="botaoTestaSenha">Testar senha</button>
+            </div>
 
-        <div class="containerTeclado">
-            <div class="teclado">
-                <div class="tecla" id="Tecla0Coluna0">0</div>
-                <div class="tecla" id="Tecla1Coluna0">1</div>
-                <div class="tecla" id="Tecla2Coluna0">2</div>
-                <div class="tecla" id="Tecla3Coluna0">3</div>
-                <div class="tecla" id="Tecla4Coluna0">4</div>
-                <div class="tecla" id="Tecla5Coluna0">5</div>
-                <div class="tecla" id="Tecla6Coluna0">6</div>
-                <div class="tecla" id="Tecla7Coluna0">7</div>
-                <div class="tecla" id="Tecla8Coluna0">8</div>
-                <div class="tecla" id="Tecla9Coluna0">9</div>
+            <div class="containerMostrarSenha" style="flex-direction: column; gap: 10px;">
+                <div class="CotainerTextoSenhaAdversario">
+                    <h1>Nota</h1>
+                    <h2>Senha do adversário</h2>
+                </div>
+                <div style="display: flex;align-items: center;justify-content: center;width: 100%;">
+                    <input disabled class="no-spinner" type="number" id="DefinirSenhaAdversario"
+                        placeholder="Digite sua senha">
+                    <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenhaCriar()"></i>
+                </div>
             </div>
-            <div class="teclado">
-                <div class="tecla" id="Tecla0Coluna1">0</div>
-                <div class="tecla" id="Tecla1Coluna1">1</div>
-                <div class="tecla" id="Tecla2Coluna1">2</div>
-                <div class="tecla" id="Tecla3Coluna1">3</div>
-                <div class="tecla" id="Tecla4Coluna1">4</div>
-                <div class="tecla" id="Tecla5Coluna1">5</div>
-                <div class="tecla" id="Tecla6Coluna1">6</div>
-                <div class="tecla" id="Tecla7Coluna1">7</div>
-                <div class="tecla" id="Tecla8Coluna1">8</div>
-                <div class="tecla" id="Tecla9Coluna1">9</div>
+
+            <div id="sidebar" class="sidebar">
+                <i class="bi bi-arrow-left back-icon" onclick="toggleSidebar()"></i>
+                <h1>Suas tentativas</h1>
             </div>
-            <div class="teclado">
-                <div class="tecla" id="Tecla0Coluna2">0</div>
-                <div class="tecla" id="Tecla1Coluna2">1</div>
-                <div class="tecla" id="Tecla2Coluna2">2</div>
-                <div class="tecla" id="Tecla3Coluna2">3</div>
-                <div class="tecla" id="Tecla4Coluna2">4</div>
-                <div class="tecla" id="Tecla5Coluna2">5</div>
-                <div class="tecla" id="Tecla6Coluna2">6</div>
-                <div class="tecla" id="Tecla7Coluna2">7</div>
-                <div class="tecla" id="Tecla8Coluna2">8</div>
-                <div class="tecla" id="Tecla9Coluna2">9</div>
-            </div>
-            <div class="teclado">
-                <div class="tecla" id="Tecla0Coluna3">0</div>
-                <div class="tecla" id="Tecla1Coluna3">1</div>
-                <div class="tecla" id="Tecla2Coluna3">2</div>
-                <div class="tecla" id="Tecla3Coluna3">3</div>
-                <div class="tecla" id="Tecla4Coluna3">4</div>
-                <div class="tecla" id="Tecla5Coluna3">5</div>
-                <div class="tecla" id="Tecla6Coluna3">6</div>
-                <div class="tecla" id="Tecla7Coluna3">7</div>
-                <div class="tecla" id="Tecla8Coluna3">8</div>
-                <div class="tecla" id="Tecla9Coluna3">9</div>
+
+            <div class="containerTeclado">
+                <div class="teclado">
+                    <div class="tecla" id="Tecla0Coluna0">0</div>
+                    <div class="tecla" id="Tecla1Coluna0">1</div>
+                    <div class="tecla" id="Tecla2Coluna0">2</div>
+                    <div class="tecla" id="Tecla3Coluna0">3</div>
+                    <div class="tecla" id="Tecla4Coluna0">4</div>
+                    <div class="tecla" id="Tecla5Coluna0">5</div>
+                    <div class="tecla" id="Tecla6Coluna0">6</div>
+                    <div class="tecla" id="Tecla7Coluna0">7</div>
+                    <div class="tecla" id="Tecla8Coluna0">8</div>
+                    <div class="tecla" id="Tecla9Coluna0">9</div>
+                </div>
+                <div class="teclado">
+                    <div class="tecla" id="Tecla0Coluna1">0</div>
+                    <div class="tecla" id="Tecla1Coluna1">1</div>
+                    <div class="tecla" id="Tecla2Coluna1">2</div>
+                    <div class="tecla" id="Tecla3Coluna1">3</div>
+                    <div class="tecla" id="Tecla4Coluna1">4</div>
+                    <div class="tecla" id="Tecla5Coluna1">5</div>
+                    <div class="tecla" id="Tecla6Coluna1">6</div>
+                    <div class="tecla" id="Tecla7Coluna1">7</div>
+                    <div class="tecla" id="Tecla8Coluna1">8</div>
+                    <div class="tecla" id="Tecla9Coluna1">9</div>
+                </div>
+                <div class="teclado">
+                    <div class="tecla" id="Tecla0Coluna2">0</div>
+                    <div class="tecla" id="Tecla1Coluna2">1</div>
+                    <div class="tecla" id="Tecla2Coluna2">2</div>
+                    <div class="tecla" id="Tecla3Coluna2">3</div>
+                    <div class="tecla" id="Tecla4Coluna2">4</div>
+                    <div class="tecla" id="Tecla5Coluna2">5</div>
+                    <div class="tecla" id="Tecla6Coluna2">6</div>
+                    <div class="tecla" id="Tecla7Coluna2">7</div>
+                    <div class="tecla" id="Tecla8Coluna2">8</div>
+                    <div class="tecla" id="Tecla9Coluna2">9</div>
+                </div>
+                <div class="teclado">
+                    <div class="tecla" id="Tecla0Coluna3">0</div>
+                    <div class="tecla" id="Tecla1Coluna3">1</div>
+                    <div class="tecla" id="Tecla2Coluna3">2</div>
+                    <div class="tecla" id="Tecla3Coluna3">3</div>
+                    <div class="tecla" id="Tecla4Coluna3">4</div>
+                    <div class="tecla" id="Tecla5Coluna3">5</div>
+                    <div class="tecla" id="Tecla6Coluna3">6</div>
+                    <div class="tecla" id="Tecla7Coluna3">7</div>
+                    <div class="tecla" id="Tecla8Coluna3">8</div>
+                    <div class="tecla" id="Tecla9Coluna3">9</div>
+                </div>
             </div>
         </div>
     </div>
