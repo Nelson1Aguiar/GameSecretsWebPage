@@ -1,34 +1,11 @@
-const senha = document.getElementById("senha");
-
-const buttonTesta = document.getElementById("botaoTestaSenha");
-
 const senhaTeste = document.getElementById("senhaTentativa");
-
 const textResponse = document.getElementById("textResponse");
-
-const inputPass = document.getElementById("DefinirSenhaAdversario");
-
-const sideBar = document.getElementById("sidebar");
-
-const initPlayerForm = document.getElementById("initPlayerForm");
-
-const playerName = document.getElementById("namePlayerInit");
-
-const password = document.getElementById("passwordInit");
-
-const mainContainer = document.getElementById("mainContainer");
-
-const containerInit = document.getElementById("containerInit");
-
 const overlay = document.getElementById("overlay");
-
-let senhaDefinida;
-
-let teclas = [];
+const statusTurno = document.getElementById("turnoStatus");
 
 let player;
 
-let teclasBackup = [[], [], [], []]
+let teclasBackup = [[], [], [], []];
 
 for (let i = 0; i < 4; i++) {
     teclas[i] = [];
@@ -61,12 +38,11 @@ function ChangeColor(event) {
         BlockOtherButtons(i, j);
     } else {
         tecla.style.backgroundColor = 'white';
-        UnlockButtons(i, j)
+        UnlockButtons(i, j);
     }
 }
 
 const BlockOtherButtons = (i, j) => {
-
     teclasBackup[i] = teclas[i].map(tecla => ({
         backgroundColor: tecla.style.backgroundColor,
     }));
@@ -79,7 +55,6 @@ const BlockOtherButtons = (i, j) => {
     });
 };
 
-
 const UnlockButtons = (i, j) => {
     teclas[i].forEach((tecla, index) => {
         if (index !== parseInt(j)) {
@@ -91,14 +66,25 @@ const UnlockButtons = (i, j) => {
     teclasBackup[i] = [];
 };
 
+const moveScreen = () => {
+    containerInit.classList.add("hide");
+    mainContainer.classList.add("show");
+}
+
+const moveScreenToLogin = () => {
+    containerInit.classList.remove("hide");
+    mainContainer.classList.remove("show");
+
+    senhaTeste.value = '';
+}
+
 initPlayerForm.addEventListener("submit", async function (event) {
     event.preventDefault();
-
-    const apiUrl = "https://gamesecretsapi.onrender.com/Game/InitPlayer";
+    const apiUrl = "http://localhost:5058/Game/InitPlayer";
 
     const statusElement = document.getElementById("status");
 
-    statusElement.textContent = "Conectando ao servidor...";
+    statusElement.textContent = "Aguardando adversário...";
 
     GameStartPlayer = {
         Player: playerName.value,
@@ -121,21 +107,22 @@ initPlayerForm.addEventListener("submit", async function (event) {
         const data = await response.json();
 
         if (data.status === "success") {
-            statusElement.textContent = `Jogo iniciado: ${data.Player1} vs ${data.Player2}`;
-            containerInit.style.display = "none";
-            mainContainer.style.display = "flex";
+            moveScreen();
 
-            if(data.player1 === playerName.value){
+            password.value = '';
+            statusElement.textContent = '';
+
+            if (data.player1 === playerName.value) {
                 player = {
                     isYourTurn: true,
                     name: playerName.value
                 }
-            }
-            else{
+            } else {
                 player = {
                     isYourTurn: false,
                     name: playerName.value
                 }
+
                 awaitYourTurn();
             }
         } else {
@@ -147,15 +134,12 @@ initPlayerForm.addEventListener("submit", async function (event) {
     }
 });
 
-
-const awaitYourTurn = async () =>{
+const awaitYourTurn = async () => {
     overlay.style.display = 'block';
 
-    const statusTurno = document.getElementById("turnoStatus");
+    statusTurno.textContent = "Aguarde sua rodada...";
 
-    statusTurno.textContent = "Aguarde sua rodada..."
-
-    const apiUrl = `https://gamesecretsapi.onrender.com/Game/CurrentTurn/${player.name}`;
+    const apiUrl = `http://localhost:5058/Game/CurrentTurn/${player.name}`;
 
     try {
         const response = await fetch(apiUrl, {
@@ -172,8 +156,18 @@ const awaitYourTurn = async () =>{
         const data = await response.json();
 
         if (data.status === "success") {
-            statusTurno.textContent = data.message;
+            statusTurno.textContent = `${data.lastTurnPlayer} acertou ${data.rightNumbers} dígitos`;
+
             overlay.style.display = 'none';
+
+            if (data.rightNumbers === 4) {
+                alert(`${data.lastTurnPlayer} é o vencedor`);
+                moveScreenToLogin();
+                resetHistoric();
+                statusTurno.textContent = '';
+                textResponse.innerHTML = '';
+            }
+
         } else {
             console.log(`Erro: ${data.message}`);
         }
@@ -182,8 +176,8 @@ const awaitYourTurn = async () =>{
     }
 }
 
-const playYourTurn = async (senhaTesteComparacao) =>{    
-    const apiUrl = "https://gamesecretsapi.onrender.com/Game/PlayTurn";
+const playYourTurn = async (senhaTesteComparacao) => {
+    const apiUrl = "http://localhost:5058/Game/PlayTurn";
 
     GameStartPlayer = {
         Player: player.name,
@@ -208,15 +202,24 @@ const playYourTurn = async (senhaTesteComparacao) =>{
         if (data.status === "success") {
             textResponse.innerHTML = `${data.numerosCertos} certos`;
 
-            let tentativa = {
-                senha: senhaTesteComparacao,
-                numCertos: data.numerosCertos
+            if (data.numerosCertos === 4) {
+                alert(`Você venceu!, a senha é ${GameStartPlayer.Password}`);
+                resetHistoric();
+                moveScreenToLogin();
+                statusTurno.textContent = '';
+                textResponse.innerHTML = '';
             }
-        
-            SaveInHistoric(tentativa);
-            awaitYourTurn();
-        
-            senhaTeste.value = '';
+            else {
+                let tentativa = {
+                    senha: senhaTesteComparacao,
+                    numCertos: data.numerosCertos
+                }
+
+                SaveInHistoric(tentativa);
+                awaitYourTurn();
+
+                senhaTeste.value = '';
+            }
         } else {
             console.log(`Erro: ${data.message}`);
         }
@@ -225,19 +228,12 @@ const playYourTurn = async (senhaTesteComparacao) =>{
     }
 }
 
-password.addEventListener("input", function () {
-    const statusElement = document.getElementById("status");
-
-    let senhaTesteComparacao = password.value;
-
-    password.value = senhaTesteComparacao.replace(/[a-zA-Z\s\W]/g, "");
-
-    if (!isNaN(senhaTesteComparacao) && Number(senhaTesteComparacao) > 9999) {
-        statusElement.textContent = "Máximo 4 dígitos";
-        password.value = senhaTesteComparacao.slice(0, -1);
-    }
-});
-
+const resetHistoric = () => {
+    const historicContainers = sideBar.querySelectorAll('.containerHistoric');
+    historicContainers.forEach(container => {
+        container.remove();
+    });
+}
 
 senhaTeste.addEventListener("input", function () {
     textResponse.innerHTML = '';
@@ -271,7 +267,7 @@ function mostrarSenhaCriar() {
         btnShowPass.classList.replace("bi-eye-fill", "bi-eye-slash-fill");
     } else {
         inputPass.type = "password";
-        inputPass.setAttribute("disabled",true)
+        inputPass.setAttribute("disabled", true)
         btnShowPass.classList.replace("bi-eye-slash-fill", "bi-eye-fill");
     }
 }
@@ -280,41 +276,41 @@ buttonTesta.addEventListener("click", function () {
     let senhaTesteComparacao = senhaTeste.value
 
     if (senhaTesteComparacao.length < 4) {
-        textResponse.innerHTML = "Mínimo 4 digitos"
+        textResponse.innerHTML = "Mínimo 4 digitos";
         return;
     }
 
     playYourTurn(senhaTesteComparacao);
 })
 
-const SaveInHistoric = (tentativa) =>{
+const SaveInHistoric = (tentativa) => {
     const divContainer = document.createElement("div");
     const senha = document.createElement("h2");
     const numCertos = document.createElement("h3");
 
-    senha.innerHTML =  `Senha: ${tentativa.senha}`;
+    senha.innerHTML = `Senha: ${tentativa.senha}`;
     numCertos.innerHTML = `Certos: ${tentativa.numCertos}`;
 
-    divContainer.classList.add("containerHistoric")
+    divContainer.classList.add("containerHistoric");
 
     divContainer.appendChild(senha);
     divContainer.appendChild(numCertos);
     sideBar.appendChild(divContainer);
 }
 
-const toggleMenu = () =>{
-    sideBar.classList.add("active")
+const toggleMenu = () => {
+    sideBar.classList.add("active");
 }
 
-const toggleSidebar = () =>{
-    sideBar.classList.remove("active")
+const toggleSidebar = () => {
+    sideBar.classList.remove("active");
 }
 
-const clearInput = (inputId) =>{
-    if(inputId === 'senhaTentativa'){
+const clearInput = (inputId) => {
+    if (inputId === 'senhaTentativa') {
         senhaTeste.value = '';
     }
-    else{
+    else {
         senha.value = '';
     }
 }
