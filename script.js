@@ -1,6 +1,5 @@
 const senhaTeste = document.getElementById("senhaTentativa");
 const textResponse = document.getElementById("textResponse");
-const overlay = document.getElementById("overlay");
 const statusTurno = document.getElementById("turnoStatus");
 const inputPass = document.getElementById("DefinirSenhaAdversario");
 const buttonTesta = document.getElementById("botaoTestaSenha");
@@ -86,6 +85,7 @@ const moveScreenToLogin = () => {
 
 initPlayerForm.addEventListener("submit", async function (event) {
     event.preventDefault();
+
     const apiUrl = "https://gamesecretsapi.onrender.com/Game/InitPlayer";
 
     const statusElement = document.getElementById("status");
@@ -141,7 +141,8 @@ initPlayerForm.addEventListener("submit", async function (event) {
 });
 
 const awaitYourTurn = async () => {
-    overlay.style.display = 'block';
+    buttonTesta.disabled = true;
+    buttonTesta.classList.add('disabled');
 
     statusTurno.textContent = "Aguarde sua rodada...";
 
@@ -164,7 +165,8 @@ const awaitYourTurn = async () => {
         if (data.status === "success") {
             statusTurno.textContent = `${data.lastTurnPlayer} acertou ${data.rightNumbers} dígitos`;
 
-            overlay.style.display = 'none';
+            buttonTesta.disabled = false;
+            buttonTesta.classList.remove('disabled');
 
             if (data.rightNumbers === 4) {
                 alert(`${data.lastTurnPlayer} é o vencedor`);
@@ -261,6 +263,16 @@ inputPass.addEventListener("input", function () {
 
     if (!isNaN(senhaAux) && Number(senhaAux) > 9999) {
         inputPass.value = senhaAux.slice(0, -1);
+    }
+});
+
+password.addEventListener("input", function () {
+    let senhaAux = password.value;
+
+    password.value = senhaAux.replace(/[a-zA-Z\s\W]/g, "");
+
+    if (!isNaN(senhaAux) && Number(senhaAux) > 9999) {
+        password.value = senhaAux.slice(0, -1);
     }
 });
 
