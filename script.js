@@ -209,7 +209,7 @@ const playYourTurn = async (senhaTesteComparacao) => {
             textResponse.innerHTML = `${data.numerosCertos} certos`;
 
             if (data.numerosCertos === 4) {
-                alert(`Você venceu!, a senha é ${GameStartPlayer.Password}`);
+                alert(`Você venceu! A senha é ${GameStartPlayer.Password}`);
                 resetHistoric();
                 moveScreenToLogin();
                 statusTurno.textContent = '';
