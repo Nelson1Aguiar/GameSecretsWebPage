@@ -2,6 +2,7 @@ const senhaTeste = document.getElementById("senhaTentativa");
 const textResponse = document.getElementById("textResponse");
 const overlay = document.getElementById("overlay");
 const statusTurno = document.getElementById("turnoStatus");
+const inputPass = document.getElementById("DefinirSenhaAdversario");
 
 let player;
 
