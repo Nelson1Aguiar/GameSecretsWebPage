@@ -11,8 +11,19 @@ body{
     max-height: 100vh;
     font-size: 15px;
     background-color: black;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+  }
 
 .containerInit{
     width: 100%;
@@ -24,12 +35,44 @@ body{
     background-color: black;
 }
 
+.principal{
+    width: 200%;
+}
+
+.containerInit,
+.mainContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.containerInit {
+  transform: translateX(0);
+}
+
+.mainContainer {
+  transform: translateX(100%);
+}
+
+.containerInit.hide {
+    transform: translateX(-100%);
+  }
+  
+.mainContainer.show {
+    transform: translateX(0);
+}
+
 .initFormContainer{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 70%;
-    height: 50%;
+    width: 30%;
+    height: 80%;
     flex-direction: column;
     background-color: rgb(120, 112, 112);
     border-radius: 20px;
@@ -76,7 +119,7 @@ body{
 .mainContainer{
     width: 100%;
     height: 100%;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
@@ -161,7 +204,7 @@ body{
 }
 
 .sidebar.active {
-    left: 0;
+    left: 0%;
 }
 
 .back-icon{
@@ -328,5 +371,15 @@ body{
     .clear-icon{
         left: 64%;
         font-size: 11px;
+    }
+    .initFormContainer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        height: 80%;
+        flex-direction: column;
+        background-color: rgb(120, 112, 112);
+        border-radius: 20px;
     }
   }
