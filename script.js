@@ -5,6 +5,8 @@ const statusTurno = document.getElementById("turnoStatus");
 const inputPass = document.getElementById("DefinirSenhaAdversario");
 const buttonTesta = document.getElementById("botaoTestaSenha");
 const sideBar = document.getElementById("sidebar");
+const playerName = document.getElementById("namePlayerInit");
+const password = document.getElementById("passwordInit");
 
 let player;
 
