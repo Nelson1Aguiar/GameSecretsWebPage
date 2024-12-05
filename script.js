@@ -80,7 +80,7 @@ const moveScreenToLogin = () => {
 
 initPlayerForm.addEventListener("submit", async function (event) {
     event.preventDefault();
-    const apiUrl = "http://localhost:5058/Game/InitPlayer";
+    const apiUrl = "https://gamesecretsapi.onrender.com/Game/InitPlayer";
 
     const statusElement = document.getElementById("status");
 
@@ -139,7 +139,7 @@ const awaitYourTurn = async () => {
 
     statusTurno.textContent = "Aguarde sua rodada...";
 
-    const apiUrl = `http://localhost:5058/Game/CurrentTurn/${player.name}`;
+    const apiUrl = `https://gamesecretsapi.onrender.com/Game/CurrentTurn/${player.name}`;
 
     try {
         const response = await fetch(apiUrl, {
@@ -177,7 +177,7 @@ const awaitYourTurn = async () => {
 }
 
 const playYourTurn = async (senhaTesteComparacao) => {
-    const apiUrl = "http://localhost:5058/Game/PlayTurn";
+    const apiUrl = "https://gamesecretsapi.onrender.com/Game/PlayTurn";
 
     GameStartPlayer = {
         Player: player.name,
