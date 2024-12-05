@@ -3,6 +3,8 @@ const textResponse = document.getElementById("textResponse");
 const overlay = document.getElementById("overlay");
 const statusTurno = document.getElementById("turnoStatus");
 const inputPass = document.getElementById("DefinirSenhaAdversario");
+const buttonTesta = document.getElementById("botaoTestaSenha");
+const sideBar = document.getElementById("sidebar");
 
 let player;
 
@@ -311,8 +313,5 @@ const toggleSidebar = () => {
 const clearInput = (inputId) => {
     if (inputId === 'senhaTentativa') {
         senhaTeste.value = '';
-    }
-    else {
-        senha.value = '';
     }
 }
