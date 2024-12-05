@@ -6,6 +6,7 @@ const statusTurno = document.getElementById("turnoStatus");
 let player;
 
 let teclasBackup = [[], [], [], []];
+let teclas = [];
 
 for (let i = 0; i < 4; i++) {
     teclas[i] = [];
