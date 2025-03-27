@@ -411,6 +411,8 @@ const toggleChat = () =>{
 }
 
 const enviarMensagem = () =>{
+    if(mensagemDigitada.value.trim() === '') return;
+
     const mensagem = {
         remetente: player.name,
         texto: mensagemDigitada.value
