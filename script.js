@@ -4,13 +4,45 @@ const statusTurno = document.getElementById("turnoStatus");
 const inputPass = document.getElementById("DefinirSenhaAdversario");
 const buttonTesta = document.getElementById("botaoTestaSenha");
 const sideBar = document.getElementById("sidebar");
+const chatSidebar = document.getElementById("chatSidebar");
 const playerName = document.getElementById("namePlayerInit");
 const password = document.getElementById("passwordInit");
+const MensagensExibir = document.getElementById("Mensagens");
+const mensagemDigitada = document.getElementById("enviarMensagensDigitada")
 
 let player;
+let playerAdversario;
 
 let teclasBackup = [[], [], [], []];
 let teclas = [];
+
+let unreadMessages = 0;
+let chatAberto = false;
+
+const chatSocket = new WebSocket("wss://gamesecretsapi.onrender.com/chat");
+
+chatSocket.onmessage = (event) => {
+    try {
+        if (!chatAberto)
+        {
+            unreadMessages+=1;
+            atualizarContador();
+        }
+
+        let data = event.data;
+
+        const mensagem = JSON.parse(data);
+        const isYou = mensagem.remetente === player.name;
+
+        SaveInChat(mensagem.texto, mensagem.remetente, isYou);
+    } catch (e) {
+        console.warn("Mensagem recebida não é JSON:", event.data);
+    }
+};
+
+chatSocket.onopen = () => {
+  console.log("Conectado ao chat");
+};
 
 for (let i = 0; i < 4; i++) {
     teclas[i] = [];
@@ -128,12 +160,14 @@ initPlayerForm.addEventListener("submit", async function (event) {
                     isYourTurn: true,
                     name: playerName.value
                 }
+                playerAdversario = data.player2
             } else {
                 player = {
                     isYourTurn: false,
                     name: playerName.value
                 }
 
+                playerAdversario = data.player1
                 awaitYourTurn();
             }
         } else {
@@ -321,7 +355,31 @@ const SaveInHistoric = (tentativa) => {
     sideBar.appendChild(divContainer);
 }
 
+const SaveInChat = (mensagemRecebida, emissorDaMensagem, isYou) =>{
+    const divContainer = document.createElement("div");
+    const emissor = document.createElement("h2");
+    const mensagem = document.createElement("h3");
+
+    emissor.innerHTML = emissorDaMensagem;
+    mensagem.innerHTML = mensagemRecebida;
+
+    divContainer.classList.add("containerChatHistoric");
+
+    if(isYou){
+        divContainer.classList.add("message-sent");
+    }
+    else{
+        divContainer.classList.add("message-received");
+    }
+
+    divContainer.appendChild(emissor);
+    divContainer.appendChild(mensagem);
+    MensagensExibir.appendChild(divContainer);
+    MensagensExibir.scrollTop = MensagensExibir.scrollHeight;
+}
+
 const toggleMenu = () => {
+    RemoveChatSidebar();
     sideBar.classList.add("active");
 }
 
@@ -329,8 +387,45 @@ const toggleSidebar = () => {
     sideBar.classList.remove("active");
 }
 
+const RemoveChatSidebar = () => {
+    chatSidebar.classList.remove("active");
+    chatAberto = false;
+}
+
 const clearInput = (inputId) => {
     if (inputId === 'senhaTentativa') {
         senhaTeste.value = '';
+    }
+}
+
+const toggleChat = () =>{
+    toggleSidebar();
+    chatSidebar.classList.add("active");
+    chatAberto = true;
+
+    if (unreadMessages > 0)
+    {
+        unreadMessages = 0;
+        atualizarContador();
+    }
+}
+
+const enviarMensagem = () =>{
+    const mensagem = {
+        remetente: player.name,
+        texto: mensagemDigitada.value
+    };
+
+    chatSocket.send(JSON.stringify(mensagem));
+    mensagemDigitada.value = '';
+}
+
+const atualizarContador = () => {
+    const contador = document.getElementById("unreadCount");
+    if (unreadMessages > 0) {
+        contador.style.display = "flex";
+        contador.textContent = unreadMessages;
+    } else {
+        contador.style.display = "none";
     }
 }

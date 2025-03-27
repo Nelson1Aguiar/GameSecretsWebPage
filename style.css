@@ -182,6 +182,15 @@ input[type="number"] {
     position: absolute;
 }
 
+.chat-icon {
+    position: absolute;
+    display: flex;
+    right: 20px;
+    color: black;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
 .sidebar {
     background-color: rgb(120, 112, 112);
     width: 25%;
@@ -205,6 +214,31 @@ input[type="number"] {
 
 .sidebar.active {
     left: 0%;
+}
+
+.chatSidebar {
+    background-color: rgb(120, 112, 112);
+    width: 25%;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    top: 0;
+    right: -100%;
+    z-index: 12;
+    overflow: auto;
+    color: black;
+    transition: right 0.5s ease;
+}
+
+.chatSidebar h1{
+    margin-top: 50px;
+}
+
+.chatSidebar.active {
+    right: 0%;
 }
 
 .back-icon{
@@ -233,7 +267,55 @@ input[type="number"] {
     margin-bottom: 20px;
     flex-direction: column;
 }
-  
+
+.containerChatHistoric {
+    color: black;
+    border-radius: 18px;
+    padding: 10px 15px;
+    margin: 10px;
+    display: inline-block;
+    word-wrap: break-word;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 60%;
+}
+
+/* Mensagem recebida - bolha à esquerda */
+.message-received {
+    background-color: #f1f0f0;
+    align-self: flex-start;
+}
+
+.message-received::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #f1f0f0;
+    border-bottom: 10px solid transparent;
+}
+
+/* Mensagem enviada - bolha à direita */
+.message-sent {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+}
+
+.message-sent::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-left: 10px solid #dcf8c6;
+    border-bottom: 10px solid transparent;
+}
+
 .DefineSenha{
     width: 100%;
     height: 20%;
@@ -333,6 +415,69 @@ input[type="number"] {
     flex-direction: column;
 }
 
+.containerExibeMensagens {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column; /* Alinhar mensagens verticalmente */
+    align-items: flex-start; /* Começar à esquerda por padrão */
+    justify-content: flex-start; /* Alinhar no topo */
+    padding: 10px;
+    overflow-y: auto; /* Scroll se precisar */
+    gap: 10px; /* Espaço entre mensagens */
+}
+
+.containerEnviarMessagens {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px;
+    flex-direction: row;
+}
+
+.enviarMessagens{
+    width: 80%;
+    outline: none;
+    padding: 3px;
+    border-radius: 20px;
+}
+
+.send-button {
+    background: transparent;
+    color: rgb(0, 0, 0);
+    border: none;
+    width: 10%;
+    cursor: pointer;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.linha-divisoria {
+    width: 100%;
+    height: 2px;
+    background-color: #000000;
+    margin: 0 auto 10px auto;
+}
+
+.unread-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
   @media (max-width: 767px) {
     .DefineSenha {
         height: 15%;
@@ -362,6 +507,9 @@ input[type="number"] {
         display: none;
     }
     .sidebar{
+        width: 60%;
+    }
+    .chatSidebar{
         width: 60%;
     }
     .clear-icon{

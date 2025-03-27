@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Secrets</title>
 </head>
 
@@ -32,6 +33,10 @@
                 </div>
                 <h1 class="textResponse" id="textResponse"></h1>
                 <p id="turnoStatus"></p>
+                <div class="chat-icon" onclick="toggleChat()">
+                    <i class="fas fa-comments"></i>
+                    <span id="unreadCount" class="unread-count" style="display: none;">0</span>
+                </div>
             </div>
             <div id="TestaSenha" class="DefineSenha" style="display: flex;">
                 <label for="inputSenha">Digite sua tentativa de senha</label>
@@ -58,6 +63,19 @@
             <div id="sidebar" class="sidebar">
                 <i class="bi bi-arrow-left back-icon" onclick="toggleSidebar()"></i>
                 <h1>Suas tentativas</h1>
+            </div>
+
+            <div id="chatSidebar" class="chatSidebar">
+                <i class="bi bi-arrow-right back-icon" onclick="RemoveChatSidebar()" style="align-self: end; margin-right: 12px;"></i>
+                <h1>Chat</h1>
+                <div class="linha-divisoria"></div>
+                <div id="Mensagens" class="containerExibeMensagens"></div>
+                <div id="containerEnviarMessagens" class="containerEnviarMessagens">
+                    <input class="enviarMessagens" id="enviarMensagensDigitada" placeholder="Digite sua mensagem">
+                    <button class="send-button" onclick="enviarMensagem()"> 
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
             </div>
 
             <div class="containerTeclado">
